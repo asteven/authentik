@@ -336,6 +336,20 @@ export class LDAPSourceForm extends ModelForm<LDAPSource, string> {
                             ${t`Field which contains a unique Identifier.`}
                         </p>
                     </ak-form-element-horizontal>
+                    <ak-form-element-horizontal
+                       name="groupMembershipAttributeUniqueness">
+                        <div class="pf-c-check">
+                            <input
+                                type="checkbox"
+                                class="pf-c-check__input"
+                                ?checked=${this.instance?.groupMembershipAttributeUniqueness}
+                            />
+                            <label class="pf-c-check__label"> ${t`Use object uniqueness field for membership mapping`} </label>
+                        </div>
+                        <p class="pf-c-form__helper-text">
+                            ${t`Use object uniqueness field to map users to groups instead of using the distinguished name.`}
+                        </p>
+                    </ak-form-element-horizontal>
                 </div>
             </ak-form-group>
         </form>`;

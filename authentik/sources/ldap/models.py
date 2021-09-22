@@ -47,6 +47,14 @@ class LDAPSource(Source):
     object_uniqueness_field = models.TextField(
         default="objectSid", help_text=_("Field which contains a unique Identifier.")
     )
+    group_membership_attribute_uniqueness = models.BooleanField(
+        help_text=_(
+            (
+                "Use object uniqueness field to map users to groups instead "
+                "of using the distinguished name."
+            )
+        ),
+    )
 
     property_mappings_group = models.ManyToManyField(
         PropertyMapping,
