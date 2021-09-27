@@ -11795,6 +11795,10 @@ paths:
           type: string
           format: uuid
       - in: query
+        name: group_membership_attribute_uniqueness
+        schema:
+          type: boolean
+      - in: query
         name: group_membership_field
         schema:
           type: string
@@ -21345,6 +21349,11 @@ components:
         object_uniqueness_field:
           type: string
           description: Field which contains a unique Identifier.
+        group_membership_attribute_uniqueness:
+          type: boolean
+          nullable: true
+          description: Use object uniqueness field to map users to groups instead
+            of using the distinguished name.
         sync_users:
           type: boolean
         sync_users_password:
@@ -21441,6 +21450,11 @@ components:
         object_uniqueness_field:
           type: string
           description: Field which contains a unique Identifier.
+        group_membership_attribute_uniqueness:
+          type: boolean
+          nullable: true
+          description: Use object uniqueness field to map users to groups instead
+            of using the distinguished name.
         sync_users:
           type: boolean
         sync_users_password:
@@ -25808,6 +25822,11 @@ components:
         object_uniqueness_field:
           type: string
           description: Field which contains a unique Identifier.
+        group_membership_attribute_uniqueness:
+          type: boolean
+          nullable: true
+          description: Use object uniqueness field to map users to groups instead
+            of using the distinguished name.
         sync_users:
           type: boolean
         sync_users_password:
