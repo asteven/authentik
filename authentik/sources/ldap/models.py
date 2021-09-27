@@ -48,6 +48,8 @@ class LDAPSource(Source):
         default="objectSid", help_text=_("Field which contains a unique Identifier.")
     )
     group_membership_attribute_uniqueness = models.BooleanField(
+        default=False,
+        null=True,
         help_text=_(
             (
                 "Use object uniqueness field to map users to groups instead "
