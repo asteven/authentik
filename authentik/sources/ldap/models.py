@@ -1,4 +1,5 @@
 """authentik LDAP Models"""
+import os
 from ssl import CERT_REQUIRED
 
 from django.db import models
@@ -108,15 +109,20 @@ class LDAPSource(Source):
     @property
     def server(self) -> Server:
         """Get LDAP Server/ServerPool"""
-        servers = []
-        tls = Tls()
+        tls_kwargs = {}
+        if 'LDAP_TLS_CIPHERS' in os.environ:
+            tls_ciphers = os.environ['LDAP_TLS_CIPHERS'].strip()
+            if tls_ciphers:
+                tls_kwargs['ciphers'] = tls_ciphers
         if self.peer_certificate:
-            tls = Tls(ca_certs_data=self.peer_certificate.certificate_data, validate=CERT_REQUIRED)
+            tls_kwargs['ca_certs_data'] = self.peer_certificate.certificate_data
+            tls_kwargs['validate'] = CERT_REQUIRED
         kwargs = {
             "get_info": ALL,
             "connect_timeout": LDAP_TIMEOUT,
-            "tls": tls,
+            "tls": Tls(**tls_kwargs),
         }
+        servers = []
         if "," in self.server_uri:
             for server in self.server_uri.split(","):
                 servers.append(Server(server, **kwargs))
